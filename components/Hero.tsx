@@ -31,6 +31,7 @@ const Hero = () => {
             className="object-contain"
           ></Image>
         </div>
+        <div className="hero__image-overlay" />
       </div>
     </div>
   );

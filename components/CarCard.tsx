@@ -1,19 +1,23 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import Image from "next/image";
-import { CarProps } from "@/types";
+
 import { calculateCarRent } from "@/utils";
-import { CarDetails, CustomButton } from ".";
+import { CarProps } from "@/types";
+import CustomButton from "./CustomButton";
+import CarDetails from "./CarDetails";
 
 interface CarCardProps {
   car: CarProps;
 }
 
 const CarCard = ({ car }: CarCardProps) => {
-  const { city_mpg, make, model, transmission, year, drive } = car;
-  const carRent = calculateCarRent(city_mpg, year);
+  const { city_mpg, year, make, model, transmission, drive } = car;
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const carRent = calculateCarRent(city_mpg, year);
 
   return (
     <div className="car-card group">
@@ -22,41 +26,47 @@ const CarCard = ({ car }: CarCardProps) => {
           {make} {model}
         </h2>
       </div>
-      <p className="flext mt-6 text-[32px] font-extrabold">
-        <span className="self-start text-[14px] font-semibold">$</span>
+
+      <p className="flex mt-6 text-[32px] leading-[38px] font-extrabold">
+        <span className="self-start text-[14px] leading-[17px] font-semibold">
+          $
+        </span>
         {carRent}
-        <span className="self-start text-[14px] font-semibold">/ day</span>
+        <span className="self-end text-[14px] leading-[17px] font-medium">
+          /day
+        </span>
       </p>
 
-      <div className="relative w-full h-40 my-3">
+      <div className="relative w-full h-40 my-3 object-contain">
         <Image
           src="/hero.png"
+          alt="car model"
           fill
           priority
           className="object-contain"
-          alt="car modal"
         />
       </div>
-      <div className="relative flex w-full mt-12">
-        <div className="flex group-over:invisible w-full justify-between text-gray mr-2 ml-2">
-          <div className="flex flex-col items-center gap-2">
+
+      <div className="relative flex w-full mt-2">
+        <div className="flex group-hover:invisible w-full justify-between text-grey">
+          <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/steering-wheel.svg"
-              width={18}
-              height={18}
+              width={20}
+              height={20}
               alt="steering wheel"
             />
-            <p className="text-[14px]">
+            <p className="text-[14px] leading-[17px]">
               {transmission === "a" ? "Automatic" : "Manual"}
             </p>
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <Image src="/tire.svg" width={18} height={18} alt="tire" />
-            <p className="text-[14px]">{drive.toUpperCase()}</p>
+          <div className="car-card__icon">
+            <Image src="/tire.svg" width={20} height={20} alt="seat" />
+            <p className="car-card__icon-text">{drive.toUpperCase()}</p>
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <Image src="/gas.svg" width={16} height={16} alt="gas" />
-            <p className="text-[14px]">{city_mpg}MPG</p>
+          <div className="car-card__icon">
+            <Image src="/gas.svg" width={20} height={20} alt="seat" />
+            <p className="car-card__icon-text">{city_mpg} MPG</p>
           </div>
         </div>
 
